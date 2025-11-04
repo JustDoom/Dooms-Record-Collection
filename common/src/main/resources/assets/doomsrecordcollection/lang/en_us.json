@@ -1,0 +1,24 @@
+{
+  "category.doomsrecordcollection.tab": "Doom's Record Collection",
+
+  "item.doomsrecordcollection.base_needle": "Base Needle",
+  "item.doomsrecordcollection.diamond_needle": "Diamond Needle",
+  "item.doomsrecordcollection.walkmob": "WalkMob",
+
+  "block.doomsrecordcollection.black_record_display": "Black Record Display",
+  "block.doomsrecordcollection.blue_record_display": "Blue Record Display",
+  "block.doomsrecordcollection.brown_record_display": "Brown Record Display",
+  "block.doomsrecordcollection.cyan_record_display": "Cyan Record Display",
+  "block.doomsrecordcollection.gray_record_display": "Gray Record Display",
+  "block.doomsrecordcollection.green_record_display": "Green Record Display",
+  "block.doomsrecordcollection.light_blue_record_display": "Light Blue Record Display",
+  "block.doomsrecordcollection.light_gray_record_display": "Light Gray Record Display",
+  "block.doomsrecordcollection.lime_record_display": "Lime Record Display",
+  "block.doomsrecordcollection.magenta_record_display": "Magenta Record Display",
+  "block.doomsrecordcollection.orange_record_display": "Orange Record Display",
+  "block.doomsrecordcollection.pink_record_display": "Pink Record Display",
+  "block.doomsrecordcollection.purple_record_display": "Purple Record Display",
+  "block.doomsrecordcollection.red_record_display": "Red Record Display",
+  "block.doomsrecordcollection.white_record_display": "White Record Display",
+  "block.doomsrecordcollection.yellow_record_display": "Yellow Record Display"
+}
