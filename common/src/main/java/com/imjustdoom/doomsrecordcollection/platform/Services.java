@@ -1,6 +1,6 @@
 package com.imjustdoom.doomsrecordcollection.platform;
 
-import com.imjustdoom.doomsrecordcollection.CommonClass;
+import com.imjustdoom.doomsrecordcollection.DoomsRecordCollection;
 import com.imjustdoom.doomsrecordcollection.platform.services.IPlatformHelper;
 
 import java.util.ServiceLoader;
@@ -24,7 +24,7 @@ public class Services {
         final T loadedService = ServiceLoader.load(clazz)
                 .findFirst()
                 .orElseThrow(() -> new NullPointerException("Failed to load service for " + clazz.getName()));
-        CommonClass.LOG.debug("Loaded {} for service {}", loadedService, clazz);
+        DoomsRecordCollection.LOG.debug("Loaded {} for service {}", loadedService, clazz);
         return loadedService;
     }
 }

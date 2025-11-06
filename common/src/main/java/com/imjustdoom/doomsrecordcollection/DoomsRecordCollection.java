@@ -4,7 +4,7 @@ import net.minecraft.world.item.CreativeModeTab;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class CommonClass {
+public class DoomsRecordCollection {
     public static final String MOD_ID = "doomsrecordcollection";
     public static final String MOD_NAME = "Doom's Record Collection";
     public static final Logger LOG = LoggerFactory.getLogger(MOD_NAME);

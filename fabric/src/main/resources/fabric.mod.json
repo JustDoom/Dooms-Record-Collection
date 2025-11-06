@@ -16,7 +16,10 @@
     "environment": "*",
     "entrypoints": {
         "main": [
-          "com.imjustdoom.doomsrecordcollection.DoomsRecordCollectionMod"
+          "com.imjustdoom.doomsrecordcollection.DoomsRecordCollectionFabric"
+        ],
+        "client": [
+          "com.imjustdoom.doomsrecordcollection.DoomsRecordCollectionClientFabric"
         ]
     },
     "mixins": [

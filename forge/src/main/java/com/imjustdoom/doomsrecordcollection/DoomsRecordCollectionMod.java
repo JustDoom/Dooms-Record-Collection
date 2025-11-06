@@ -2,7 +2,7 @@ package com.imjustdoom.doomsrecordcollection;
 
 import net.minecraftforge.fml.common.Mod;
 
-@Mod(CommonClass.MOD_ID)
+@Mod(DoomsRecordCollection.MOD_ID)
 public class DoomsRecordCollectionMod {
     
     public DoomsRecordCollectionMod() {
@@ -12,8 +12,7 @@ public class DoomsRecordCollectionMod {
         // project.
     
         // Use Forge to bootstrap the Common mod.
-        CommonClass.LOG.info("Hello Forge world!");
-        CommonClass.init();
-        
+        DoomsRecordCollection.LOG.info("Hello Forge world!");
+        DoomsRecordCollection.init();
     }
 }
