@@ -1,0 +1,19 @@
+{
+  "variants": {
+    "facing=south": {
+      "model": "doomsrecordcollection:block/light_gray_wool_mangrove_planks_record_display"
+    },
+    "facing=west": {
+      "model": "doomsrecordcollection:block/light_gray_wool_mangrove_planks_record_display",
+      "y": 90
+    },
+    "facing=north": {
+      "model": "doomsrecordcollection:block/light_gray_wool_mangrove_planks_record_display",
+      "y": 180
+    },
+    "facing=east": {
+      "model": "doomsrecordcollection:block/light_gray_wool_mangrove_planks_record_display",
+      "y": 270
+    }
+  }
+}

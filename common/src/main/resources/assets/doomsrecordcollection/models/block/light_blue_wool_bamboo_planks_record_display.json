@@ -1,0 +1,7 @@
+{
+  "parent": "doomsrecordcollection:block/record_display",
+  "textures": {
+    "0": "block/bamboo_planks",
+    "1": "block/light_blue_wool"
+  }
+}

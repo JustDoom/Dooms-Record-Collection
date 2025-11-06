@@ -21,7 +21,6 @@ public class DoomsRecordCollectionFabric implements ModInitializer {
                     output.accept(ModItems.DIAMOND_NEEDLE.get());
                     output.accept(ModItems.WALKMOB.get());
                     ModBlocks.RECORD_DISPLAYS.forEach(block -> output.accept(block.get()));
-                    output.accept(ModBlocks.BAMBOO_RECORD_DISPLAY.get());
                 })
                 .build();
 
