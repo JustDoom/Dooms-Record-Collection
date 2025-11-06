@@ -113,4 +113,24 @@ public class RecordDisplay extends BaseEntityBlock {
 
         super.onRemove(state, level, pos, newState, movedByPiston);
     }
+
+    @Override
+    public boolean isSignalSource(BlockState state) {
+        return true;
+    }
+
+    @Override
+    public int getSignal(BlockState state, BlockGetter level, BlockPos pos, Direction direction) {
+        if (level.getBlockEntity(pos) instanceof RecordDisplayEntity recordDisplay) {
+            int count = 0;
+            for (int i = 0; i < RecordDisplayEntity.MAX_SLOTS; i++) {
+                if (recordDisplay.getItem(i) != ItemStack.EMPTY) {
+                    count++;
+                }
+            }
+            return count;
+        }
+
+        return 0;
+    }
 }
