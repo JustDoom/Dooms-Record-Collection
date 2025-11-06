@@ -1,0 +1,26 @@
+{
+    "type": "minecraft:crafting_shaped",
+    "pattern": [
+        " # ",
+        "/I/",
+        "___"
+    ],
+    "key": {
+        "#": {
+            "item": "minecraft:pink_wool"
+        },
+        "/": {
+            "item": "minecraft:stick"
+        },
+        "I": {
+            "item": "minecraft:iron_nugget"
+        },
+        "_": {
+            "item": "minecraft:bamboo_slab"
+        }
+    },
+    "result": {
+        "item": "doomsrecordcollection:pink_wool_bamboo_planks_record_display",
+        "count": 1
+    }
+}

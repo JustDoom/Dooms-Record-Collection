@@ -1,0 +1,26 @@
+{
+    "type": "minecraft:crafting_shaped",
+    "pattern": [
+        " # ",
+        "/I/",
+        "___"
+    ],
+    "key": {
+        "#": {
+            "item": "minecraft:blue_wool"
+        },
+        "/": {
+            "item": "minecraft:stick"
+        },
+        "I": {
+            "item": "minecraft:iron_nugget"
+        },
+        "_": {
+            "item": "minecraft:mangrove_slab"
+        }
+    },
+    "result": {
+        "item": "doomsrecordcollection:blue_wool_mangrove_planks_record_display",
+        "count": 1
+    }
+}

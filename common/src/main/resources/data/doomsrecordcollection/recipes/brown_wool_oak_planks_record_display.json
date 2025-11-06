@@ -1,0 +1,26 @@
+{
+    "type": "minecraft:crafting_shaped",
+    "pattern": [
+        " # ",
+        "/I/",
+        "___"
+    ],
+    "key": {
+        "#": {
+            "item": "minecraft:brown_wool"
+        },
+        "/": {
+            "item": "minecraft:stick"
+        },
+        "I": {
+            "item": "minecraft:iron_nugget"
+        },
+        "_": {
+            "item": "minecraft:oak_slab"
+        }
+    },
+    "result": {
+        "item": "doomsrecordcollection:brown_wool_oak_planks_record_display",
+        "count": 1
+    }
+}

@@ -1,0 +1,26 @@
+{
+    "type": "minecraft:crafting_shaped",
+    "pattern": [
+        " # ",
+        "/I/",
+        "___"
+    ],
+    "key": {
+        "#": {
+            "item": "minecraft:purple_wool"
+        },
+        "/": {
+            "item": "minecraft:stick"
+        },
+        "I": {
+            "item": "minecraft:iron_nugget"
+        },
+        "_": {
+            "item": "minecraft:birch_slab"
+        }
+    },
+    "result": {
+        "item": "doomsrecordcollection:purple_wool_birch_planks_record_display",
+        "count": 1
+    }
+}
