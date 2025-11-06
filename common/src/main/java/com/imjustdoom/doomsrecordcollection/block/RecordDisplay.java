@@ -26,7 +26,6 @@ import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.Vec3;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
-import org.jetbrains.annotations.Nullable;
 
 public class RecordDisplay extends BaseEntityBlock {
     public static final DirectionProperty FACING = BlockStateProperties.HORIZONTAL_FACING;
@@ -44,7 +43,8 @@ public class RecordDisplay extends BaseEntityBlock {
 
         Vec3 vec = hit.getLocation();
         Direction facing = state.getValue(HorizontalDirectionalBlock.FACING);
-        double inc = (facing == Direction.NORTH || facing == Direction.SOUTH) ? vec.x % 1 : vec.z % 1;
+        double rawInc = (facing == Direction.NORTH || facing == Direction.SOUTH) ? vec.x % 1 : vec.z % 1;
+        double inc = rawInc >= 0 ? rawInc : rawInc + 1;
         int slot = getSlot(inc);
         ItemStack heldItem = player.getItemInHand(hand);
         if (slot == -1 || !(level.getBlockEntity(pos) instanceof RecordDisplayEntity recordDisplay)) {
@@ -69,7 +69,7 @@ public class RecordDisplay extends BaseEntityBlock {
     }
 
     @Override
-    public @Nullable BlockState getStateForPlacement(BlockPlaceContext context) {
+    public BlockState getStateForPlacement(BlockPlaceContext context) {
         return defaultBlockState().setValue(FACING, context.getHorizontalDirection().getOpposite());
     }
 
@@ -91,7 +91,7 @@ public class RecordDisplay extends BaseEntityBlock {
     }
 
     @Override
-    public @Nullable BlockEntity newBlockEntity(BlockPos blockPos, BlockState blockState) {
+    public BlockEntity newBlockEntity(BlockPos blockPos, BlockState blockState) {
         return new RecordDisplayEntity(blockPos, blockState);
     }
 }

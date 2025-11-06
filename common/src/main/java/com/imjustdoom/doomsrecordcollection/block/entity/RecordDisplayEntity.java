@@ -14,14 +14,13 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
-import org.jetbrains.annotations.Nullable;
 
 public class RecordDisplayEntity extends BlockEntity implements Container {
     public static final int MAX_SLOTS = 7;
     private final NonNullList<ItemStack> items = NonNullList.withSize(MAX_SLOTS, ItemStack.EMPTY);
 
     public RecordDisplayEntity(BlockPos pos, BlockState blockState) {
-        super(ModBlocks.RECORD_DISPLAY_ENTITY, pos, blockState);
+        super(ModBlocks.RECORD_DISPLAY_ENTITY.get(), pos, blockState);
     }
 
     @Override
@@ -137,7 +136,7 @@ public class RecordDisplayEntity extends BlockEntity implements Container {
     }
 
     @Override
-    public @Nullable Packet<ClientGamePacketListener> getUpdatePacket() {
+    public Packet<ClientGamePacketListener> getUpdatePacket() {
         return ClientboundBlockEntityDataPacket.create(this);
     }
 

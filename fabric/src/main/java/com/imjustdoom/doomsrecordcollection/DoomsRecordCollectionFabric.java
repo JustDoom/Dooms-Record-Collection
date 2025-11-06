@@ -8,38 +8,24 @@ import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.item.BlockItem;
-import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 
 public class DoomsRecordCollectionFabric implements ModInitializer {
-
     @Override
     public void onInitialize() {
-        DoomsRecordCollection.init();
-
         DoomsRecordCollection.DOOMS_RECORD_COLLECTION_TAB = FabricItemGroup.builder()
-                .icon(() -> new ItemStack(ModItems.WALKMOB))
+                .icon(() -> new ItemStack(ModItems.WALKMOB.get()))
                 .title(Component.translatable("category.doomsrecordcollection.tab"))
                 .displayItems((params, output) -> {
-                    output.accept(ModItems.BASE_NEEDLE);
-                    output.accept(ModItems.DIAMOND_NEEDLE);
-                    output.accept(ModItems.WALKMOB);
-                    ModBlocks.RECORD_DISPLAYS.forEach((colour, block) -> output.accept(block));
+                    output.accept(ModItems.BASE_NEEDLE.get());
+                    output.accept(ModItems.DIAMOND_NEEDLE.get());
+                    output.accept(ModItems.WALKMOB.get());
+                    ModBlocks.RECORD_DISPLAYS.forEach(block -> output.accept(block.get()));
                 })
                 .build();
 
-        Registry.register(BuiltInRegistries.ITEM, new ResourceLocation(DoomsRecordCollection.MOD_ID, "base_needle"), ModItems.BASE_NEEDLE);
-        Registry.register(BuiltInRegistries.ITEM, new ResourceLocation(DoomsRecordCollection.MOD_ID, "diamond_needle"), ModItems.DIAMOND_NEEDLE);
-        Registry.register(BuiltInRegistries.ITEM, new ResourceLocation(DoomsRecordCollection.MOD_ID, "walkmob"), ModItems.WALKMOB);
-
-        ModBlocks.RECORD_DISPLAYS.forEach((colour, block) -> {
-            Registry.register(BuiltInRegistries.BLOCK, new ResourceLocation(DoomsRecordCollection.MOD_ID, colour.getName() + "_record_display"), block);
-            Registry.register(BuiltInRegistries.ITEM, new ResourceLocation(DoomsRecordCollection.MOD_ID, colour.getName() + "_record_display"), new BlockItem(block, new Item.Properties()));
-        });
-
-        Registry.register(BuiltInRegistries.BLOCK_ENTITY_TYPE, new ResourceLocation(DoomsRecordCollection.MOD_ID, "record_display"), ModBlocks.RECORD_DISPLAY_ENTITY);
-
         Registry.register(BuiltInRegistries.CREATIVE_MODE_TAB, new ResourceLocation(DoomsRecordCollection.MOD_ID, "tab"), DoomsRecordCollection.DOOMS_RECORD_COLLECTION_TAB);
+
+        DoomsRecordCollection.init();
     }
 }

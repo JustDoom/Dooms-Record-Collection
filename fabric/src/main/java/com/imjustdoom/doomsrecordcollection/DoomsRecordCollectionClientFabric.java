@@ -8,6 +8,6 @@ import net.minecraft.client.renderer.blockentity.BlockEntityRenderers;
 public class DoomsRecordCollectionClientFabric implements ClientModInitializer {
     @Override
     public void onInitializeClient() {
-        BlockEntityRenderers.register(ModBlocks.RECORD_DISPLAY_ENTITY, RecordDisplayRenderer::new);
+        BlockEntityRenderers.register(ModBlocks.RECORD_DISPLAY_ENTITY.get(), RecordDisplayRenderer::new);
     }
 }

@@ -1,5 +1,14 @@
 package com.imjustdoom.doomsrecordcollection.platform.services;
 
+import com.imjustdoom.doomsrecordcollection.platform.RegistryWrapper;
+import net.minecraft.world.item.CreativeModeTab;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.entity.BlockEntityType;
+
+import java.util.function.Supplier;
+
 public interface IPlatformHelper {
 
     /**
@@ -32,4 +41,9 @@ public interface IPlatformHelper {
     default String getEnvironmentName() {
         return isDevelopmentEnvironment() ? "development" : "production";
     }
+
+    <T extends Item> RegistryWrapper<T> registerItem(String id, Supplier<T> item);
+    <T extends Block> RegistryWrapper<T> registerBlock(String id, Supplier<T> block);
+    <T extends BlockEntity> RegistryWrapper<BlockEntityType<T>> registerBlockEntity(String id, Supplier<BlockEntityType<T>> block);
+    void registerTab(String id, CreativeModeTab tab);
 }
