@@ -18,6 +18,8 @@ import java.util.function.Supplier;
 
 public class ModBlocks {
     public static final List<RegistryWrapper<RecordDisplay>> RECORD_DISPLAYS = new ArrayList<>(16);
+    public static final RegistryWrapper<RecordDisplay> BAMBOO_RECORD_DISPLAY = registerBlock("bamboo_record_display",
+            () -> new RecordDisplay(BlockBehaviour.Properties.copy(Blocks.OAK_PLANKS).noOcclusion()));
 
     public static final RegistryWrapper<BlockEntityType<RecordDisplayEntity>> RECORD_DISPLAY_ENTITY;
 
@@ -39,12 +41,12 @@ public class ModBlocks {
     }
 
     static {
-
         Arrays.stream(DyeColor.values()).forEach(colour -> {
             RECORD_DISPLAYS.add(registerBlock(colour.getName() + "_record_display",
                     () -> new RecordDisplay(BlockBehaviour.Properties.copy(Blocks.OAK_PLANKS).noOcclusion())
             ));
         });
+        RECORD_DISPLAYS.add(BAMBOO_RECORD_DISPLAY);
 
         RECORD_DISPLAY_ENTITY = registerBlockEntity("record_display", () -> BlockEntityType.Builder.of(
                 RecordDisplayEntity::new,
