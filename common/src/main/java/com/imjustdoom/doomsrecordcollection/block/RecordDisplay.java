@@ -56,8 +56,7 @@ public class RecordDisplay extends BaseEntityBlock {
             player.getItemInHand(hand).shrink(1);
             level.playSound(null, pos, SoundEvents.ITEM_FRAME_ADD_ITEM, SoundSource.NEUTRAL, 1f, 1f);
         } else if (heldItem.isEmpty() && !recordDisplay.getItem(slot).isEmpty()) {
-            ItemStack recordItem = recordDisplay.removeItem(slot, 1);
-            player.addItem(recordItem);
+            player.setItemInHand(hand, recordDisplay.removeItem(slot, 1));
             level.playSound(null, pos, SoundEvents.ITEM_FRAME_REMOVE_ITEM, SoundSource.NEUTRAL, 1f, 1f);
         }
 
