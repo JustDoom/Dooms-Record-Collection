@@ -1,10 +1,12 @@
 package com.imjustdoom.doomsrecordcollection.block.renderer;
 
+import com.imjustdoom.doomsrecordcollection.block.RecordDisplay;
 import com.imjustdoom.doomsrecordcollection.block.entity.RecordDisplayEntity;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Axis;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
+import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderer;
 import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
@@ -12,8 +14,13 @@ import net.minecraft.core.Direction;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.ItemDisplayContext;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.RecordItem;
 import net.minecraft.world.level.block.HorizontalDirectionalBlock;
 import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.state.properties.BlockStateProperties;
+import net.minecraft.world.phys.BlockHitResult;
+import net.minecraft.world.phys.HitResult;
+import net.minecraft.world.phys.Vec3;
 
 public class RecordDisplayRenderer implements BlockEntityRenderer<RecordDisplayEntity> {
     private final BlockEntityRendererProvider.Context context;
@@ -42,17 +49,37 @@ public class RecordDisplayRenderer implements BlockEntityRenderer<RecordDisplayE
             poseStack.popPose();
         }
 
-//        renderNameTag(recordDisplayEntity, Component.literal("Record Display"), poseStack, multiBufferSource, packedLight);
+        HitResult rayTraceResult = Minecraft.getInstance().hitResult;
+
+
+        if (rayTraceResult instanceof BlockHitResult blockHitResult) {
+            if (!(recordDisplayEntity.getLevel().getBlockState(blockHitResult.getBlockPos()).getBlock() instanceof RecordDisplay)
+                    || rayTraceResult.getType() != BlockHitResult.Type.BLOCK) {
+                return;
+            }
+
+            Vec3 vec = blockHitResult.getLocation();
+            double rawInc = (facing == Direction.NORTH || facing == Direction.SOUTH) ? vec.x % 1 : vec.z % 1;
+            int slot = RecordDisplay.getSlot(rawInc >= 0 ? rawInc : rawInc + 1);
+            if (slot == -1) {
+                return;
+            }
+
+            ItemStack stackInSlot = recordDisplayEntity.getItem(slot);
+            if (!stackInSlot.isEmpty()) {
+                renderNameTag(recordDisplayEntity, ((RecordItem) stackInSlot.getItem()).getDisplayName(), poseStack, multiBufferSource, packedLight);
+            }
+        }
     }
 
     protected void renderNameTag(BlockEntity entity, Component displayName, PoseStack poseStack, MultiBufferSource buffer, int packedLight) {
-        double distance = this.context.getBlockEntityRenderDispatcher().camera.getPosition().distanceToSqr(entity.getBlockPos().getCenter()); // TODO: Account for exact disc pos
+        double distance = this.context.getBlockEntityRenderDispatcher().camera.getPosition().distanceToSqr(entity.getBlockPos().getCenter());
         if (distance > 4096) {
             return;
         }
         float yOffset = 1;
         poseStack.pushPose();
-        poseStack.translate(0, yOffset, 0);
+        poseStack.translate(0.5f, yOffset, 0.5f);
         poseStack.mulPose(this.context.getEntityRenderer().cameraOrientation());
         poseStack.scale(-0.025f, -0.025f, 0.025f);
         Font font = this.context.getFont();

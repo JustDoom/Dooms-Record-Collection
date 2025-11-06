@@ -44,8 +44,7 @@ public class RecordDisplay extends BaseEntityBlock {
         Vec3 vec = hit.getLocation();
         Direction facing = state.getValue(HorizontalDirectionalBlock.FACING);
         double rawInc = (facing == Direction.NORTH || facing == Direction.SOUTH) ? vec.x % 1 : vec.z % 1;
-        double inc = rawInc >= 0 ? rawInc : rawInc + 1;
-        int slot = getSlot(inc);
+        int slot = getSlot(rawInc >= 0 ? rawInc : rawInc + 1);
         ItemStack heldItem = player.getItemInHand(hand);
         if (slot == -1 || !(level.getBlockEntity(pos) instanceof RecordDisplayEntity recordDisplay)) {
             return InteractionResult.SUCCESS;
@@ -63,7 +62,7 @@ public class RecordDisplay extends BaseEntityBlock {
         return InteractionResult.CONSUME;
     }
 
-    public int getSlot(double inc) {
+    public static int getSlot(double inc) {
         return inc < 1 / 16d || inc > 15 / 16d ? -1 : (int) (8 * inc - 0.5f);
     }
 
