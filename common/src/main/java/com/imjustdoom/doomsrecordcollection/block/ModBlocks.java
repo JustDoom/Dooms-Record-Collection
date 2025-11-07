@@ -223,8 +223,6 @@ public class ModBlocks {
     }
 
     static {
-        System.out.println(RECORD_DISPLAYS.size());
-        System.out.println(RECORD_DISPLAYS);
         RECORD_DISPLAY_ENTITY = registerBlockEntity("record_display", () -> BlockEntityType.Builder.of(
                 RecordDisplayEntity::new,
                 RECORD_DISPLAYS.stream().map(RegistryWrapper::get).toArray(Block[]::new)
