@@ -22,25 +22,56 @@ import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.phys.Vec3;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public class RecordDisplayRenderer implements BlockEntityRenderer<RecordDisplayEntity> {
     private final BlockEntityRendererProvider.Context context;
+    private final Map<Integer, Float> itemHover = new HashMap<>(7);
 
     public RecordDisplayRenderer(BlockEntityRendererProvider.Context context) {
         this.context = context;
+
+        for (int slot = 0; slot < 7; slot++) {
+            this.itemHover.put(slot, 0.3125f);
+        }
     }
 
     @Override
     public void render(RecordDisplayEntity recordDisplayEntity, float partialTick, PoseStack poseStack, MultiBufferSource multiBufferSource, int packedLight, int packedOverlay) {
         Direction facing = recordDisplayEntity.getBlockState().getValue(HorizontalDirectionalBlock.FACING);
         boolean isX = facing.getAxis() == Direction.Axis.X;
+        int hoverSlot = -1;
+        float deltaTime = Minecraft.getInstance().getDeltaFrameTime() / 20.0f;
 
+        // Get hovered slot
+        HitResult rayTraceResult = Minecraft.getInstance().hitResult;
+        if (rayTraceResult instanceof BlockHitResult blockHitResult
+                && recordDisplayEntity.getLevel().getBlockState(blockHitResult.getBlockPos()).getBlock() instanceof RecordDisplay
+                && rayTraceResult.getType() == BlockHitResult.Type.BLOCK) {
+
+            Vec3 vec = blockHitResult.getLocation();
+            double rawInc = (facing == Direction.NORTH || facing == Direction.SOUTH) ? vec.x % 1 : vec.z % 1;
+            hoverSlot = RecordDisplay.getSlot(rawInc >= 0 ? rawInc : rawInc + 1);
+        }
+
+        // Render discs
         for (int slot = 0; slot < 7; slot++) {
             ItemStack item = recordDisplayEntity.getItem(slot);
             if (item.isEmpty()) {
                 continue;
             }
+
+            float y = this.itemHover.get(slot);
+            if (slot == hoverSlot) {
+                this.itemHover.put(slot, Math.min(0.45f, y + 0.75f * deltaTime));
+            } else {
+                this.itemHover.put(slot, Math.max(0.3125f, y - 0.75f * deltaTime));
+            }
+            y = this.itemHover.get(slot);
+
             poseStack.pushPose();
-            poseStack.translate(isX ? 0.5f : 0.125f * (slot + 1), 0.3125f, isX ? 0.125f * (slot + 1) : 0.5f);
+            poseStack.translate(isX ? 0.5f : 0.125f * (slot + 1), y, isX ? 0.125f * (slot + 1) : 0.5f);
             if (!isX) {
                 poseStack.rotateAround(Axis.YP.rotationDegrees(90), 0, 0, 0);
             }
@@ -49,23 +80,9 @@ public class RecordDisplayRenderer implements BlockEntityRenderer<RecordDisplayE
             poseStack.popPose();
         }
 
-        HitResult rayTraceResult = Minecraft.getInstance().hitResult;
-
-
-        if (rayTraceResult instanceof BlockHitResult blockHitResult) {
-            if (!(recordDisplayEntity.getLevel().getBlockState(blockHitResult.getBlockPos()).getBlock() instanceof RecordDisplay)
-                    || rayTraceResult.getType() != BlockHitResult.Type.BLOCK) {
-                return;
-            }
-
-            Vec3 vec = blockHitResult.getLocation();
-            double rawInc = (facing == Direction.NORTH || facing == Direction.SOUTH) ? vec.x % 1 : vec.z % 1;
-            int slot = RecordDisplay.getSlot(rawInc >= 0 ? rawInc : rawInc + 1);
-            if (slot == -1) {
-                return;
-            }
-
-            ItemStack stackInSlot = recordDisplayEntity.getItem(slot);
+        // Render hovered name
+        if (hoverSlot != -1) {
+            ItemStack stackInSlot = recordDisplayEntity.getItem(hoverSlot);
             if (!stackInSlot.isEmpty()) {
                 renderNameTag(recordDisplayEntity, ((RecordItem) stackInSlot.getItem()).getDisplayName(), poseStack, multiBufferSource, packedLight);
             }
