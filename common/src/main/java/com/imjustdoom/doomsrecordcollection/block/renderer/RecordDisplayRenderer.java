@@ -84,7 +84,8 @@ public class RecordDisplayRenderer implements BlockEntityRenderer<RecordDisplayE
         if (hoverSlot != -1) {
             ItemStack stackInSlot = recordDisplayEntity.getItem(hoverSlot);
             if (!stackInSlot.isEmpty()) {
-                renderNameTag(recordDisplayEntity, ((RecordItem) stackInSlot.getItem()).getDisplayName(), poseStack, multiBufferSource, packedLight);
+                Component name = stackInSlot.getItem() instanceof RecordItem recordItem ? recordItem.getDisplayName() : stackInSlot.getDisplayName();
+                renderNameTag(recordDisplayEntity, name, poseStack, multiBufferSource, packedLight);
             }
         }
     }

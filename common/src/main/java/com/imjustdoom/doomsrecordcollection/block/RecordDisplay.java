@@ -50,7 +50,7 @@ public class RecordDisplay extends BaseEntityBlock {
             return InteractionResult.SUCCESS;
         }
 
-        if (heldItem.getItem() instanceof RecordItem && recordDisplay.getItem(slot).isEmpty()) {
+        if (recordDisplay.getItem(slot).isEmpty()) {
             recordDisplay.setItem(slot, heldItem);
             player.getItemInHand(hand).shrink(1);
             level.playSound(null, pos, SoundEvents.ITEM_FRAME_ADD_ITEM, SoundSource.NEUTRAL, 1f, 1f);
