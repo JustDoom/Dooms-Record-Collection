@@ -1,8 +1,10 @@
 package com.imjustdoom.doomsrecordcollection.platform.services;
 
+import com.imjustdoom.doomsrecordcollection.item.RecordDisplayItem;
 import com.imjustdoom.doomsrecordcollection.platform.RegistryWrapper;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
@@ -45,5 +47,12 @@ public interface IPlatformHelper {
     <T extends Item> RegistryWrapper<T> registerItem(String id, Supplier<T> item);
     <T extends Block> RegistryWrapper<T> registerBlock(String id, Supplier<T> block);
     <T extends BlockEntity> RegistryWrapper<BlockEntityType<T>> registerBlockEntity(String id, Supplier<BlockEntityType<T>> block);
+    <T extends RecipeSerializer<?>> RegistryWrapper<T> registerRecipeSerializer(String id, Supplier<T> serializer);
     void registerTab(String id, CreativeModeTab tab);
+
+    /**
+     * The record display item draws itself from NBT, and Forge can only be told that through the item
+     * class, so each loader supplies its own {@link RecordDisplayItem}.
+     */
+    RecordDisplayItem recordDisplayItem(Block block, Item.Properties properties);
 }

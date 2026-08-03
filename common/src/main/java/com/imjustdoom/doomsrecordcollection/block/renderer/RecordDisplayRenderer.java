@@ -44,6 +44,9 @@ public class RecordDisplayRenderer implements BlockEntityRenderer<RecordDisplayE
         int hoverSlot = -1;
         float deltaTime = Minecraft.getInstance().getDeltaFrameTime() / 20.0f;
 
+        RecordDisplayModel.render(recordDisplayEntity.getBlockState(), recordDisplayEntity.getBase(),
+                recordDisplayEntity.getWool(), poseStack, multiBufferSource, packedLight, packedOverlay);
+
         // Get hovered slot
         HitResult rayTraceResult = Minecraft.getInstance().hitResult;
         if (rayTraceResult instanceof BlockHitResult blockHitResult

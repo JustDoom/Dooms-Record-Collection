@@ -1,7 +1,9 @@
 package com.imjustdoom.doomsrecordcollection.platform;
 
 import com.imjustdoom.doomsrecordcollection.DoomsRecordCollection;
+import com.imjustdoom.doomsrecordcollection.item.RecordDisplayItem;
 import com.imjustdoom.doomsrecordcollection.platform.services.IPlatformHelper;
+import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
@@ -46,7 +48,17 @@ public class FabricPlatformHelper implements IPlatformHelper {
     }
 
     @Override
+    public <T extends RecipeSerializer<?>> RegistryWrapper<T> registerRecipeSerializer(String id, Supplier<T> serializer) {
+        return new FabricWrapper<>(Registry.register(BuiltInRegistries.RECIPE_SERIALIZER, new ResourceLocation(DoomsRecordCollection.MOD_ID, id), serializer.get()));
+    }
+
+    @Override
     public void registerTab(String id, CreativeModeTab tab) {
         Registry.register(BuiltInRegistries.CREATIVE_MODE_TAB, new ResourceLocation(DoomsRecordCollection.MOD_ID, id), tab);
+    }
+
+    @Override
+    public RecordDisplayItem recordDisplayItem(Block block, Item.Properties properties) {
+        return new RecordDisplayItem(block, properties);
     }
 }

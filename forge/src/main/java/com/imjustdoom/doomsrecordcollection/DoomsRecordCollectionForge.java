@@ -31,7 +31,7 @@ public class DoomsRecordCollectionForge {
                     output.accept(ModItems.BASE_NEEDLE.get());
                     output.accept(ModItems.DIAMOND_NEEDLE.get());
                     output.accept(ModItems.WALKMOB.get());
-                    ModBlocks.RECORD_DISPLAYS.forEach(block -> output.accept(block.get()));
+                    ModBlocks.appendDisplays(params, output);
                 })
                 .build();
         ForgePlatformHelper.TABS.register("tab", () -> DoomsRecordCollection.DOOMS_RECORD_COLLECTION_TAB);
@@ -39,6 +39,7 @@ public class DoomsRecordCollectionForge {
         ForgePlatformHelper.ITEMS.register(modBus);
         ForgePlatformHelper.BLOCKS.register(modBus);
         ForgePlatformHelper.BLOCK_ENTITIES.register(modBus);
+        ForgePlatformHelper.RECIPE_SERIALIZERS.register(modBus);
         ForgePlatformHelper.TABS.register(modBus);
 
         DoomsRecordCollection.init();

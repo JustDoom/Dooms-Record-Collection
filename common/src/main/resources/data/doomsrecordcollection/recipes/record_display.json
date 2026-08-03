@@ -1,0 +1,26 @@
+{
+    "type": "doomsrecordcollection:record_display",
+    "pattern": [
+        " # ",
+        "/I/",
+        "___"
+    ],
+    "key": {
+        "#": {
+            "tag": "doomsrecordcollection:record_display_wools"
+        },
+        "/": {
+            "item": "minecraft:stick"
+        },
+        "I": {
+            "item": "minecraft:iron_nugget"
+        },
+        "_": {
+            "tag": "doomsrecordcollection:record_display_bases"
+        }
+    },
+    "result": {
+        "item": "doomsrecordcollection:record_display",
+        "count": 1
+    }
+}

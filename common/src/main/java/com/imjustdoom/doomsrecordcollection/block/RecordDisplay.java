@@ -1,6 +1,7 @@
 package com.imjustdoom.doomsrecordcollection.block;
 
 import com.imjustdoom.doomsrecordcollection.block.entity.RecordDisplayEntity;
+import com.imjustdoom.doomsrecordcollection.item.RecordDisplayItem;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.sounds.SoundEvents;
@@ -73,7 +74,15 @@ public class RecordDisplay extends BaseEntityBlock {
 
     @Override
     public RenderShape getRenderShape(BlockState state) {
-        return RenderShape.MODEL;
+        // The base and wool textures come from the block entity, so RecordDisplayRenderer draws the whole block.
+        return RenderShape.INVISIBLE;
+    }
+
+    @Override
+    public ItemStack getCloneItemStack(BlockGetter level, BlockPos pos, BlockState state) {
+        return level.getBlockEntity(pos) instanceof RecordDisplayEntity recordDisplay
+                ? RecordDisplayItem.of(recordDisplay.getBase(), recordDisplay.getWool())
+                : super.getCloneItemStack(level, pos, state);
     }
 
     @Override
